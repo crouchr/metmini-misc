@@ -66,7 +66,7 @@ def get_solar_times_api():
         app_name = request.args.get('app_name')
 
         lat = float(request.args.get('lat', None))
-        lon = float(request.args.get('lat', None))
+        lon = float(request.args.get('lon', None))
         print(
             'solar_times_api() : app_name=' + app_name.__str__() + ', lat=' + lat.__str__() + ', lon=' + lon.__str__())
 

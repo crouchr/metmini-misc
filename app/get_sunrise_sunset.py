@@ -43,6 +43,7 @@ if __name__ == '__main__':
     print('solar_noon = ' + response['solar_noon'])
     print('day_length = ' + response['day_length'])
 
+    print('finished')
 
 
 
