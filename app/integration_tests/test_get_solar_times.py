@@ -16,5 +16,5 @@ def test_get_solar_times():
     status_code, response_dict = call_rest_api.call_rest_api(integration_definitions.metminimisc_service_endpoint_base + '/get_solar_times', query)
 
     assert status_code == 200
-    assert 'AM' in response_dict['sunrise']
-    assert 'PM' in response_dict['sunset']
+    assert 'AM' not in response_dict['sunrise']
+    assert 'PM' not in response_dict['sunset']
