@@ -9,7 +9,7 @@ def get_solar_info_api1(lat, lon):
     :param lat:
     :param lon:
     :return:
-    >>> get_sunrise_info(1.0, 50.0)
+    >>> get_solar_info_api1(51.4146, -1.3749)
 
     """
     url = "https://api.sunrise-sunset.org/json?" +\
@@ -18,6 +18,7 @@ def get_solar_info_api1(lat, lon):
         "&date=today"
 
     response = requests.get(url)
+
     if response.status_code != 200:
         return response.status_code, None
 
@@ -28,17 +29,19 @@ def get_solar_info_api1(lat, lon):
 
 # testing
 if __name__ == '__main__':
-    my_lat = 1.0
-    my_lon = 1.0
 
-    status_code, response  = get_sunrise_info(my_lat, my_lon)
+    my_lat = 51.4146
+    my_lon = -1.3749
+
+    status_code, response = get_solar_info_api1(my_lat, my_lon)
 
     if status_code != 200:
         print('status_code=' + status_code.__str__())
 
-    sunrise = response['sunrise']
-    sunset = response['sunset']
-    noon = response['solar_noon']
+    print('sunrise = ' + response['sunrise'])
+    print('sunset = ' + response['sunset'])
+    print('solar_noon = ' + response['solar_noon'])
+    print('day_length = ' + response['day_length'])
 
 
 
