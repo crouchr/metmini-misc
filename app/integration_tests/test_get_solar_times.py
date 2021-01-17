@@ -13,8 +13,8 @@ def test_get_solar_times():
     query['lat'] = 51.414
     query['lon'] = -1.375
 
-    status_code, response_dict = call_rest_api.call_rest_api(integration_definitions.endpoint_base + '/get_solar_times', query)
+    status_code, response_dict = call_rest_api.call_rest_api(integration_definitions.metminimisc_service_endpoint_base + '/get_solar_times', query)
 
     assert status_code == 200
-
-
+    assert 'AM' in response_dict['sunrise']
+    assert 'PM' in response_dict['sunset']

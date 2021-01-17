@@ -91,4 +91,4 @@ if __name__ == '__main__':
 
     print('metmini-misc started, version=' + version)
 
-    app.run(host='0.0.0.0', port=definitions.listen_port.__str__())
+    app.run(host='0.0.0.0', port=definitions.metminimisc_service_listen_port.__str__())
