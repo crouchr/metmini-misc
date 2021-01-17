@@ -1,17 +1,39 @@
-# https://sunrise-sunset.org/api
+# Access external API at https://sunrise-sunset.org/api
 import requests
 import json
 
 
-def get_solar_info_api1(lat, lon):
+def convert_to_24_hour(time_str):
     """
 
+    :param time_str: e.g. '7:23:23 PM'
+    :return: '19:23:23'
+
+    """
+    parts = time_str.split(':')
+    hours = int(parts[0])
+    mins = int(parts[1])
+    secs = int(parts[2].split(' ')[0])
+
+    if 'PM' in time_str and hours != 12:
+        hours += 12
+
+    time_24_hour = "%02d" % hours + ':' + "%02d" % mins + ':' + "%02d" % secs    # add leading zero
+
+    return time_24_hour
+
+
+def get_solar_info_api1(lat, lon):
+    """
+    Call external API and get sunrise/sunset etc. and convert to 24 hour format
     :param lat:
     :param lon:
     :return:
     >>> get_solar_info_api1(51.4146, -1.3749)
 
     """
+    answer = {}
+
     url = "https://api.sunrise-sunset.org/json?" +\
         "lat=" + lat.__str__() + \
         "&lng=" + lon.__str__() + \
@@ -24,7 +46,14 @@ def get_solar_info_api1(lat, lon):
 
     response_dict = json.loads(response.content.decode('utf-8'))
 
-    return response.status_code, response_dict['results']
+    answer['civil_twilight_begin'] = convert_to_24_hour(response_dict['results']['civil_twilight_begin'])
+    answer['sunrise'] =  convert_to_24_hour(response_dict['results']['sunrise'])
+    answer['solar_noon'] = convert_to_24_hour(response_dict['results']['solar_noon'])
+    answer['sunset'] =  convert_to_24_hour(response_dict['results']['sunset'])
+    answer['civil_twilight_end'] = convert_to_24_hour(response_dict['results']['civil_twilight_end'])
+    answer['day_length'] = response_dict['results']['day_length']
+
+    return response.status_code, answer
 
 
 # testing
